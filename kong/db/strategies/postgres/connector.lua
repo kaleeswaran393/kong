@@ -300,8 +300,8 @@ function _mt:truncate()
     return true
   end
 
-  local truncate_statement = {
-    "TRUNCATE TABLE ", concat(table_names, ", "), " RESTART IDENTITY CASCADE;"
+  local truncate_statement = concat {
+    "TRUNCATE ", concat(table_names, ", "), " RESTART IDENTITY CASCADE;"
   }
 
   local ok, err = self:query(truncate_statement)
@@ -314,8 +314,8 @@ end
 
 
 function _mt:truncate_table(table_name)
-  local truncate_statement = {
-    "TRUNCATE TABLE ", table_name, " RESTART IDENTITY CASCADE;"
+  local truncate_statement = concat {
+    "TRUNCATE ", self:escape_identifier(table_name), " RESTART IDENTITY CASCADE;"
   }
 
   local ok, err = self:query(truncate_statement)
